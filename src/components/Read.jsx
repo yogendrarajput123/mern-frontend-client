@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../api/api";
 
 const Read = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
 
   const getData = async () => {
-    const response = await fetch("http://localhost:5000");
+    // const response = await fetch("http://localhost:5000");
+    const response = await fetch(API_URL);
+
     const result = await response.json();
 
     if (!response.ok) {
@@ -24,12 +27,12 @@ const Read = () => {
     getData();
   }, []);
 
-//   console.log(data);
-
+  //   console.log(data);
 
   //   Delete Data Function
   const handleDelete = async (id) => {
-    const response = await fetch(`http://localhost:5000/${id}`, {
+    // const response = await fetch(`http://localhost:5000/${id}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
       method: "DELETE",
     });
 
@@ -129,93 +132,3 @@ const Read = () => {
 };
 
 export default Read;
-
-// import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-
-// const Read = () => {
-//   const [data, setData] = useState([]);
-
-//   const [error, setError] = useState("");
-
-//   const getData = async () => {
-//     const response = await fetch("http://localhost:5000");
-//     const result = await response.json();
-
-//     if (!response.ok) {
-//       console.log(result.error);
-//       setError(result.error);
-//     }
-
-//     if (response.ok) {
-//       setData(result);
-//     }
-//   };
-
-//   // useeffect so when hit submit button and page reload it load the data
-//   useEffect(() => {
-//     getData();
-//   }, []);
-
-//   //   Delete Data Function
-//   const handleDelete = async (id) => {
-//     const response = await fetch(`http://localhost:5000/${id}`, {
-//       method: "DELETE",
-//     });
-
-//     const result = await response.json();
-
-//     if (!response.ok) {
-//       console.log(result.error);
-//       setError(result.error);
-//     }
-
-//     if (response.ok) {
-//       setError("Deleted Successfully : ");
-
-//       setTimeout(() => {
-//         setError("");
-//         getData(); // call read function again after delete data
-//       }, 1000);
-//     }
-//   };
-
-//   console.log(data);
-//   return (
-//     <div className="container my-2">
-//       {error && <div className="alert alert-danger">{error}</div>}
-
-//       <h2 className="text-center">All Users</h2>
-//       <div className="row">
-//         {data?.map((user) => {
-//           return (
-//             <div key={user._id} className="col-3">
-//               <div className="card">
-//                 <div className="card-body">
-//                   <h5 className="card-title">{user.name}</h5>
-//                   <h6 className="card-subtitle mb-2 text-muted">
-//                     {user.email}
-//                   </h6>
-//                   <p className="card-text">{user.age}</p>
-
-//                   <a
-//                     href="#"
-//                     className="card-link"
-//                     onClick={() => handleDelete(user._id)}
-//                   >
-//                     Delete
-//                   </a>
-//                   <Link to={`/update/${user._id}`} className="card-link">
-//                     Update
-//                   </Link>
-//                 </div>
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Read;

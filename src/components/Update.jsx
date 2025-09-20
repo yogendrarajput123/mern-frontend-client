@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { API_URL } from "../api/api";
 
 const Update = () => {
   const [error, setError] = useState("");
@@ -12,7 +13,8 @@ const Update = () => {
 
   // get SingleUser data  🚀🚀
   const getSinglUser = async () => {
-    const response = await fetch(`http://localhost:5000/${id}`);
+    // const response = await fetch(`http://localhost:5000/${id}`);
+    const response = await fetch(`${API_URL}/${id}`);
 
     const result = await response.json();
 
@@ -37,13 +39,14 @@ const Update = () => {
 
   // send updated data to backend  🚀🚀
   const onUpdate = async (data) => {
-    const response = await fetch(`http://localhost:5000/${id}`, {
+    // const response = await fetch(`http://localhost:5000/${id}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
     });
 
-    const result = response.json();
+    const result = await response.json();
 
     if (!response.ok) {
       setError(result.error);
@@ -62,11 +65,11 @@ const Update = () => {
   }, []);
 
   return (
-    <div className="container my-2">
+    <div className="container my-3">
       {error && <div className="alert alert-danger">{error}</div>}
       <h2 className="text-center">Update the data</h2>
       <form onSubmit={handleSubmit(onUpdate)}>
-        <div className="mb-3">
+        <div className="mb-3 my-5">
           <label className="form-label">Name</label>
           <input type="text" className="form-control" {...register("name")} />
         </div>
@@ -81,12 +84,12 @@ const Update = () => {
           <input type="number" className="form-control" {...register("age")} />
         </div>
 
-        <div>
-          <button type="submit" className="btn btn-primary">
+        <div className="d-flex justify-content-center gap-5">
+          <button type="submit" className="btn btn-primary px-5">
             Submit
           </button>
           <Link to={"/read"}>
-            <button type="submit" className="btn btn-primary">
+            <button type="button" className="btn btn-primary px-5">
               Back
             </button>
           </Link>
