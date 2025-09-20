@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../api/api";
@@ -12,7 +12,8 @@ const Update = () => {
   const navigate = useNavigate();
 
   // get SingleUser data  🚀🚀
-  const getSinglUser = async () => {
+  //  --- useCallback makes the function stable across renders so ESLint is happy:
+  const getSinglUser = useCallback(async () => {
     // const response = await fetch(`http://localhost:5000/${id}`);
     const response = await fetch(`${API_URL}/${id}`);
 
@@ -35,7 +36,7 @@ const Update = () => {
         age: result.age,
       });
     }
-  };
+  }, [id, reset]);
 
   // send updated data to backend  🚀🚀
   const onUpdate = async (data) => {
