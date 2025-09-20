@@ -63,7 +63,7 @@ const Update = () => {
 
   useEffect(() => {
     getSinglUser();
-  }, []);
+  });
 
   return (
     <div className="container my-3">
