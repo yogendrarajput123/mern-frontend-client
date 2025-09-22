@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Create />} />
           <Route path="/read" element={<Read />} />
-          <Route path="/update/:id" element={<Update />} />
+          <Route path="/update/:_id" element={<Update />} />
         </Routes>
       </BrowserRouter>
     </div>

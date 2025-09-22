@@ -1,16 +1,17 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "./../api/api";
+// import { API_URL } from "./../api/api";
+import { useDispatch } from "react-redux";
+import { createUser } from "./../features/userDetailSlice";
 
 const Create = () => {
-  // 1.....
+  //  1.....  👈
   //   const [name, setName] = useState("");
   //   const [email, setEmail] = useState("");
   //   const [age, setAge] = useState("");
   //   console.log(name, email, age);
 
-  //2.....
+  // 2.....   👈
   //   const [users, setUsers] = useState({});
 
   //   const getUserData = (e) => {
@@ -18,45 +19,76 @@ const Create = () => {
   //     console.log(users);
   //   };
 
-  //3.....
+  // 3..... react hook form   👈
 
-  //get error messge from the backend if res not go well during submit
+  // //get error messge from the backend if res not go well during submit
+  // const { register, handleSubmit, reset } = useForm();
+
+  // // const [error, setError] = useState("");
+  // const navigate = useNavigate();
+
+  // const dispatch = useDispatch();
+
+  // const onFormSubmit = async (data) => {
+  //   console.log("User Data : ", data);
+  //   // const response = await fetch("http://localhost:5000", {
+  //   const response = await fetch(API_URL, {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //     headers: { "Content-type": "application/json" },
+  //   });
+
+  //   const result = await response.json();
+
+  //   if (!response.ok) {
+  //     console.log(result.error);
+  //     setError(result.error);
+  //   }
+
+  //   if (response.ok) {
+  //     console.log(result);
+  //     setError("");
+  //     reset(); // ✅ clear all fields after successful submit
+  //     navigate("/read");
+  //   }
+  // };
+
+  //
+  //
+  //
+  //
+  //
+
+  //  👉👉👉👉👉👉     REDUX - TOOLKIT  👈👈👈👈👈👈👈
+
+  // with redux-toolkit
+
   const { register, handleSubmit, reset } = useForm();
 
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const onFormSubmit = async (data) => {
-    console.log("User Data : ", data);
-    // const response = await fetch("http://localhost:5000", {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-type": "application/json" },
-    });
+  const dispatch = useDispatch();
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      console.log(result.error);
-      setError(result.error);
-    }
-
-    if (response.ok) {
-      console.log(result);
-      setError("");
-      reset(); // ✅ clear all fields after successful submit
-      navigate("/read");
-    }
+  const onFormSubmit = (data) => {
+    console.log("users..", data);
+    dispatch(createUser(data));
+    reset();
+    navigate("/read");
   };
 
   return (
-    <div className="container my-5 d-flex justify-content-center">
+    <div
+      className="container-fluid min-vh-100 d-flex justify-content-center"
+      style={{
+        background: "linear-gradient(135deg, #1e1e1e, #2c2c2c)",
+        color: "#f1f1f1",
+      }}
+    >
       <div
-        className="card shadow-lg p-4"
-        style={{ width: "100%", maxWidth: "500px", borderRadius: "15px" }}
+        className="card shadow-lg p-4 mt-4"
+        style={{ width: "100%",height: "450px", maxWidth: "500px", borderRadius: "15px" }}
       >
-        {error && <div className="alert alert-danger">{error}</div>}
+        {/* {error && <div className="alert alert-danger">{error}</div>} */}
         <h2 className="text-center mb-4 text-primary fw-bold">Create User</h2>
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className="mb-3">
