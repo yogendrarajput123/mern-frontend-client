@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { API_URL } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, showUser } from "../features/userDetailSlice";
 
@@ -75,7 +74,7 @@ const Read = () => {
 
   useEffect(() => {
     dispatch(showUser());
-  }, []);
+  }, [dispatch]);
 
   // Filter users inline
   const filteredUsers = users.filter((user) =>

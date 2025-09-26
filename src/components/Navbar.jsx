@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { searchUser } from "../features/userDetailSlice";
-import { handleSuccess } from "../utils/utils";
 import { logout } from "../features/authSlice";
 
 const Navbar = ({ setIsAuthenticated }) => {

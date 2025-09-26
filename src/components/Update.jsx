@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { API_URL } from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../features/userDetailSlice";
 
