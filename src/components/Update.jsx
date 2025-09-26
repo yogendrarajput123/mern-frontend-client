@@ -114,36 +114,66 @@ const Update = () => {
   };
 
   return (
-    <div className="container my-3">
-      {error && <div className="alert alert-danger">{error}</div>}
-      <h2 className="text-center">Update the data</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3 my-5">
-          <label className="form-label">Name</label>
-          <input type="text" className="form-control" {...register("name")} />
-        </div>
+    <div
+      className="container-fluid min-vh-100 d-flex justify-content-center"
+      style={{
+        background: "linear-gradient(135deg, #1e1e1e, #2c2c2c)",
+      }}
+    >
+      <div
+        className="card shadow-lg p-4 mt-4"
+        style={{
+          width: "100%",
+          height: "450px",
+          maxWidth: "500px",
+          borderRadius: "15px",
+        }}
+      >
+        {error && <div className="alert alert-danger">{error}</div>}
+        <h2 className="text-center text-primary">Update the data</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-3 my-5">
+            <label className="form-label">Name</label>
+            <input type="text" className="form-control" {...register("name")} />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Email address</label>
-          <input type="email" className="form-control" {...register("email")} />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              {...register("email")}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label">Age</label>
-          <input type="number" className="form-control" {...register("age")} />
-        </div>
+          <div className="mb-3">
+            <label className="form-label">Age</label>
+            <input
+              type="number"
+              className="form-control"
+              {...register("age")}
+            />
+          </div>
 
-        <div className="d-flex justify-content-center gap-5">
-          <button type="submit" className="btn btn-primary px-5">
-            Submit
-          </button>
-          <Link to={"/read"}>
-            <button type="button" className="btn btn-primary px-5">
-              Back
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
+          >
+            <button type="submit" className="btn btn-primary px-3">
+              Submit
             </button>
-          </Link>
-        </div>
-      </form>
+            <Link to={"/read"}>
+              <button type="button" className="btn btn-primary px-4">
+                Back
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

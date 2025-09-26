@@ -81,12 +81,16 @@ const Create = () => {
       className="container-fluid min-vh-100 d-flex justify-content-center"
       style={{
         background: "linear-gradient(135deg, #1e1e1e, #2c2c2c)",
-        color: "#f1f1f1",
       }}
     >
       <div
         className="card shadow-lg p-4 mt-4"
-        style={{ width: "100%",height: "450px", maxWidth: "500px", borderRadius: "15px" }}
+        style={{
+          width: "100%",
+          height: "450px",
+          maxWidth: "500px",
+          borderRadius: "15px",
+        }}
       >
         {/* {error && <div className="alert alert-danger">{error}</div>} */}
         <h2 className="text-center mb-4 text-primary fw-bold">Create User</h2>

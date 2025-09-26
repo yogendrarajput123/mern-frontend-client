@@ -1,23 +1,47 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { searchUser } from "../features/userDetailSlice";
-import { useEffect, useState } from "react";
+import { handleSuccess } from "../utils/utils";
+import { logout } from "../features/authSlice";
 
-const Navbar = () => {
+const Navbar = ({ setIsAuthenticated }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // get all users to show lenght
+  // get all users to show length
   const allUsers = useSelector((state) => state.app.users);
 
   // get searchData from Redux:
   const searchData = useSelector((state) => state.app.searchData);
+
+  // useEffect(() => {
+  //   setUser(localStorage.getItem("loggedInUser"));
+  // }, []);
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("loggedInUser");
+  //   handleSuccess("User Loggedout");
+  //   setIsAuthenticated(false); // Update auth state
+  //   setTimeout(() => {
+  //     navigate("/login");
+  //   }, 1000);
+  // };
+
+  // 👉 👉 👉 👉 👉 👉  REDUX TOOLKIT 👈👈👈👈👈👈👈👈👈👈
+  //
+  //
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
   return (
     <nav
       className="navbar navbar-expand-lg shadow-lg"
       style={{
         background: "linear-gradient(90deg, #667eea, #764ba2)",
-        padding: "0.75rem 1.5rem",
       }}
     >
       <div className="container-fluid d-flex align-items-center justify-content-between">
@@ -31,12 +55,13 @@ const Navbar = () => {
         </Link>
 
         {/* Menu & Search */}
-        <div className="d-flex align-items-center">
-          <ul className="navbar-nav me-4 d-flex flex-row align-items-center gap-3">
+        <div className="d-flex align-items-center flex-grow-1 justify-content-between px-5">
+          {/* Left menu */}
+          <ul className="navbar-nav d-flex flex-row align-items-center gap-2 mb-0">
             <li className="nav-item">
               <Link
-                to={"/"}
-                className="nav-link text-white fw-semibold px-3 py-2 rounded"
+                to={"/create"}
+                className="nav-link text-white fw-bold px-3 py-2 rounded"
                 style={{
                   transition: "0.3s",
                 }}
@@ -53,7 +78,7 @@ const Navbar = () => {
             <li className="nav-item">
               <Link
                 to={"/read"}
-                className="nav-link text-white fw-semibold px-3 py-2 rounded"
+                className="nav-link text-white fw-bold px-3 py-2 rounded"
                 style={{
                   transition: "0.3s",
                 }}
@@ -67,31 +92,51 @@ const Navbar = () => {
                 All Tasks ({allUsers.length})
               </Link>
             </li>
+            <li>
+              <input
+                className="form-control"
+                type="search"
+                placeholder="Search Users"
+                aria-label="Search"
+                style={{
+                  width: "300px",
+                  borderRadius: "10px",
+                  padding: "0.35rem 0.75rem",
+                }}
+                // onChange={(e) => setSearchData(e.target.value)}
+                value={searchData}
+                onChange={(e) => dispatch(searchUser(e.target.value))}
+              />
+            </li>
           </ul>
 
-          {/* Search */}
-          <div className="d-flex align-items-center gap-2">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search Users"
-              aria-label="Search"
-              style={{
-                width: "350px",
-                borderRadius: "10px",
-                padding: "0.35rem 0.75rem",
-              }}
-              // onChange={(e) => setSearchData(e.target.value)}
-              value={searchData}
-              onChange={(e) => dispatch(searchUser(e.target.value))}
-            />
-            {/* <button
-              className="btn btn-outline-light"
-              type="submit"
-              style={{ borderRadius: "10px", padding: "0.35rem 2rem" }}
-            >
-              Search
-            </button> */}
+          {/* Right side: Search + User info */}
+          <div className="d-flex align-items-center gap-4">
+            {/* Logout + Username */}
+            <div className="d-flex align-items-center gap-5">
+              <div
+                className="text-white d-flex align-items-center fw-bold gap-2"
+                style={{
+                  fontSize: "1.25rem",
+                  whiteSpace: "nowrap",
+                  textShadow: "5px 5px 2px rgba(0,0,0,0.3)",
+                }}
+              >
+                <span>👨‍💼 </span>
+                <span>{localStorage.getItem("loggedInUser")}</span>
+              </div>
+              <button
+                className="btn btn-outline-light fw-semibold"
+                type="button"
+                style={{
+                  borderRadius: "10px",
+                  padding: "0.20rem 1rem",
+                }}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </div>

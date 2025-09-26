@@ -145,13 +145,11 @@ const Read = () => {
                     <Link
                       to={`/update/${user._id}`}
                       className="btn btn-sm btn-info fw-semibold"
-                      style={{ borderRadius: "6px" }}
                     >
                       ✏️ Update
                     </Link>
                     <button
-                      className="btn btn-sm btn-danger fw-semibold"
-                      style={{ borderRadius: "6px" }}
+                      className="btn btn-sm btn-danger"
                       onClick={() => dispatch(deleteUser(user._id))}
                     >
                       🗑️ Delete
