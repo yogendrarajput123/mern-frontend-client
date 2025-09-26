@@ -31,6 +31,7 @@ const Navbar = ({ setIsAuthenticated }) => {
   //
   //
 
+
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
@@ -71,7 +72,7 @@ const Navbar = ({ setIsAuthenticated }) => {
                   (e.target.style.backgroundColor = "transparent")
                 }
               >
-                Create Task
+                Create Users
               </Link>
             </li>
             <li className="nav-item">
@@ -88,7 +89,7 @@ const Navbar = ({ setIsAuthenticated }) => {
                   (e.target.style.backgroundColor = "transparent")
                 }
               >
-                All Tasks ({allUsers.length})
+                All Users ({allUsers.length})
               </Link>
             </li>
             <li>
